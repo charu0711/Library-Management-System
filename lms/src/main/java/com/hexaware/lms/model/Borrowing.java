@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,8 +30,8 @@ public class Borrowing {
 	@ManyToOne
 	private Member member; //Many borrowings to one member
 	
-	@ManyToOne
-	private Book book;  // Many borrowings to one book --  A book can be borrowed many times
+	@OneToOne
+	private Book book;  // one borrowings to one book --  A book can be borrowed one times
 
 	public Borrowing() {
 		super();

@@ -25,14 +25,12 @@ public class Book {
 	@Column(nullable = false)
 	private String author;
 	
-	private String genre;
+	private String genre;  //Science Fiction,Fantasy,Biography 
 	
 	@Column(nullable = false,unique = true)
 	private String isbn;
 	
-	private int totalCopies = 1;
-	
-	private int availableCopies = 1;
+	private boolean isAvailable = true; 
 	
 	private LocalDate publishedDate;
 	
@@ -40,12 +38,14 @@ public class Book {
 	private Librarian librarian;  //one librarian can add many books
 	
 	
+
 	public Book() {
 		super();
-		
 	}
 
-	public Book(int id, String title, String author, String genre, String isbn, int totalCopies, int availableCopies,
+	
+	
+	public Book(int id, String title, String author, String genre, String isbn, boolean isAvailable,
 			LocalDate publishedDate, Librarian librarian) {
 		super();
 		this.id = id;
@@ -53,11 +53,12 @@ public class Book {
 		this.author = author;
 		this.genre = genre;
 		this.isbn = isbn;
-		this.totalCopies = totalCopies;
-		this.availableCopies = availableCopies;
+		this.isAvailable = isAvailable;
 		this.publishedDate = publishedDate;
 		this.librarian = librarian;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -99,20 +100,12 @@ public class Book {
 		this.isbn = isbn;
 	}
 
-	public int getTotalCopies() {
-		return totalCopies;
+	public boolean isAvailable() {
+		return isAvailable;
 	}
 
-	public void setTotalCopies(int totalCopies) {
-		this.totalCopies = totalCopies;
-	}
-
-	public int getAvailableCopies() {
-		return availableCopies;
-	}
-
-	public void setAvailableCopies(int availableCopies) {
-		this.availableCopies = availableCopies;
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
 	}
 
 	public LocalDate getPublishedDate() {
@@ -131,10 +124,14 @@ public class Book {
 		this.librarian = librarian;
 	}
 
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(author, availableCopies, genre, id, isbn, librarian, publishedDate, title, totalCopies);
+		return Objects.hash(author, genre, id, isAvailable, isbn, librarian, publishedDate, title);
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -145,12 +142,14 @@ public class Book {
 		if (getClass() != obj.getClass())
 			return false;
 		Book other = (Book) obj;
-		return Objects.equals(author, other.author) && availableCopies == other.availableCopies
-				&& Objects.equals(genre, other.genre) && id == other.id && Objects.equals(isbn, other.isbn)
+		return Objects.equals(author, other.author) && Objects.equals(genre, other.genre) && id == other.id
+				&& isAvailable == other.isAvailable && Objects.equals(isbn, other.isbn)
 				&& Objects.equals(librarian, other.librarian) && Objects.equals(publishedDate, other.publishedDate)
-				&& Objects.equals(title, other.title) && totalCopies == other.totalCopies;
+				&& Objects.equals(title, other.title);
 	}
-	
+
+
+
 	
 	
 	

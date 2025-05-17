@@ -20,7 +20,7 @@ public class Librarian {
 	@Column(nullable = false)
 	private String name;
 	
-	@Column(nullable = false,unique = true)
+	@Column(nullable = false)
 	private String email;
 	
 	private String phoneNumber;
@@ -31,7 +31,6 @@ public class Librarian {
 		super();
 		
 	}
-	
 	
 
 	public Librarian(int id, String name, String email, String phoneNumber) {

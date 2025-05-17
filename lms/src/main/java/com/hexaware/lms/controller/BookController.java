@@ -1,7 +1,11 @@
 package com.hexaware.lms.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hexaware.lms.model.Book;
 import com.hexaware.lms.service.BookService;
 
-@RestController  //combination of the Controller + Response Body
+@RestController  //combination of the Controller + ResponseBody
 @RequestMapping("/api/book")
 public class BookController {
 	
@@ -17,9 +21,23 @@ public class BookController {
 	private BookService bookService;
 	
 	//Add Books
-	@GetMapping("/add")
-	public void addBook(@RequestBody Book book) {
-		bookService.addBook(book);
+	@PostMapping("/add/{lId}")
+	public Book addBook(@RequestBody Book book,@PathVariable int lId) {
+		return bookService.addBook(book,lId);
 	}
-
+	
+	//Get all the Books 
+	
+	@GetMapping("/all")
+	public List<Book> getAll(){
+		return bookService.getAll();
+	}
+	
+	@GetMapping("/{id}")
+	public Book getById(@PathVariable int id) {
+		return bookService.getById(id);
+	}
+	
+	
+	
 }
