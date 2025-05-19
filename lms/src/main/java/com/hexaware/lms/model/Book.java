@@ -148,9 +148,5 @@ public class Book {
 				&& Objects.equals(title, other.title);
 	}
 
-
-
-	
-	
 	
 }

@@ -20,7 +20,6 @@ public class Reservation {
 	
 	private LocalDate  reservationDate;
 	
-	private String reservationStatus; //pending,cancelled,issued
 	
 	@ManyToOne   //A book can be reserved many times
 	private Book book;
@@ -36,7 +35,6 @@ public class Reservation {
 		super();
 		this.id = id;
 		this.reservationDate = reservationDate;
-		this.reservationStatus = reservationStatus;
 		this.book = book;
 		this.member = member;
 	}
@@ -57,13 +55,6 @@ public class Reservation {
 		this.reservationDate = reservationDate;
 	}
 
-	public String getReservationStatus() {
-		return reservationStatus;
-	}
-
-	public void setReservationStatus(String reservationStatus) {
-		this.reservationStatus = reservationStatus;
-	}
 
 	public Book getBook() {
 		return book;
@@ -83,7 +74,7 @@ public class Reservation {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(book, id, member, reservationDate, reservationStatus);
+		return Objects.hash(book, id, member, reservationDate);
 	}
 
 	@Override
@@ -96,8 +87,7 @@ public class Reservation {
 			return false;
 		Reservation other = (Reservation) obj;
 		return Objects.equals(book, other.book) && id == other.id && Objects.equals(member, other.member)
-				&& Objects.equals(reservationDate, other.reservationDate)
-				&& Objects.equals(reservationStatus, other.reservationStatus);
+				&& Objects.equals(reservationDate, other.reservationDate);
 	}
 	
 	

@@ -22,6 +22,15 @@ public class LibrarianController {
 		librarianService.addLibrarian(librarian);
 	}
 	
+	//get all borrowings
+	
+	
+	//get all members
+	
+	//get all reservation
+	
+	
+	
 	
 
 }
