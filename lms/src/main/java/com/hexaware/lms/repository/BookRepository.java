@@ -6,4 +6,5 @@ import com.hexaware.lms.model.Book;
 
 public interface BookRepository extends JpaRepository<Book, Integer>{
 
+
 }

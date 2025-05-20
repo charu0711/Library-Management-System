@@ -1,7 +1,6 @@
 package com.hexaware.lms.model;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,19 +17,21 @@ public class Member {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(nullable = false)
+	@Column(nullable = false,length = 20)
 	private String name;
 	
-	@Column(nullable = false,unique = true)
+	@Column(length = 20)
 	private String email;
 	
+	@Column(nullable = false,length = 10)
 	private String phoneNumber;
 	
+	@Column(nullable = false,length = 50)
 	private String address;
 	
+	@Column(nullable = false)
 	private LocalDate joinDate;
 	
-	private LocalDate expiryDate;
 
 	public Member() {
 		super();
@@ -45,7 +46,6 @@ public class Member {
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.joinDate = joinDate;
-		this.expiryDate = expiryDate;
 	}
 
 	public int getId() {
@@ -94,34 +94,6 @@ public class Member {
 
 	public void setJoinDate(LocalDate joinDate) {
 		this.joinDate = joinDate;
-	}
-
-	public LocalDate getExpiryDate() {
-		return expiryDate;
-	}
-
-	public void setExpiryDate(LocalDate expiryDate) {
-		this.expiryDate = expiryDate;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(address, email, expiryDate, id, joinDate, name, phoneNumber);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Member other = (Member) obj;
-		return Objects.equals(address, other.address) && Objects.equals(email, other.email)
-				&& Objects.equals(expiryDate, other.expiryDate) && id == other.id
-				&& Objects.equals(joinDate, other.joinDate) && Objects.equals(name, other.name)
-				&& Objects.equals(phoneNumber, other.phoneNumber);
 	}
 	
 	

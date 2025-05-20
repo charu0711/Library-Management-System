@@ -1,8 +1,8 @@
 package com.hexaware.lms.model;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +19,7 @@ public class Borrowing {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@Column(nullable = false)
 	private LocalDate borrowingDate;
 	
 	private LocalDate dueDate;
@@ -27,24 +28,33 @@ public class Borrowing {
 	
 	private Double fineAmount;
 	
+	private boolean isReserved = false;
+	
+	private LocalDate  reservationDate;
+	
+	@OneToOne
+	private Member reservedMember;
+	
 	@ManyToOne
 	private Member member; //Many borrowings to one member
 	
-	@OneToOne
-	private Book book;  // one borrowings to one book --  A book can be borrowed one times
+	@ManyToOne
+	private Book book;  // A book can be borrowed many times
 
 	public Borrowing() {
 		super();
 	}
 
 	public Borrowing(int id, LocalDate borrowingDate, LocalDate dueDate, LocalDate returnDate, Double fineAmount,
-			Member member, Book book) {
+			boolean isReserved, LocalDate reservationDate, Member member, Book book) {
 		super();
 		this.id = id;
 		this.borrowingDate = borrowingDate;
 		this.dueDate = dueDate;
 		this.returnDate = returnDate;
 		this.fineAmount = fineAmount;
+		this.isReserved = isReserved;
+		this.reservationDate = reservationDate;
 		this.member = member;
 		this.book = book;
 	}
@@ -89,6 +99,22 @@ public class Borrowing {
 		this.fineAmount = fineAmount;
 	}
 
+	public boolean isReserved() {
+		return isReserved;
+	}
+
+	public void setReserved(boolean isReserved) {
+		this.isReserved = isReserved;
+	}
+
+	public LocalDate getReservationDate() {
+		return reservationDate;
+	}
+
+	public void setReservationDate(LocalDate reservationDate) {
+		this.reservationDate = reservationDate;
+	}
+
 	public Member getMember() {
 		return member;
 	}
@@ -105,26 +131,5 @@ public class Borrowing {
 		this.book = book;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(book, borrowingDate, dueDate, fineAmount, id, member, returnDate);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Borrowing other = (Borrowing) obj;
-		return Objects.equals(book, other.book) && Objects.equals(borrowingDate, other.borrowingDate)
-				&& Objects.equals(dueDate, other.dueDate) && Objects.equals(fineAmount, other.fineAmount)
-				&& id == other.id && Objects.equals(member, other.member)
-				&& Objects.equals(returnDate, other.returnDate);
-	}
-	
-	
-		
+			
 }

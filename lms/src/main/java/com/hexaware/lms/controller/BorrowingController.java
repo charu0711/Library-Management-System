@@ -5,10 +5,11 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,7 @@ import com.hexaware.lms.service.MemberService;
 
 @RestController
 @RequestMapping("/api/borrowing")
+@CrossOrigin({"http://localhost:5173"})
 public class BorrowingController {
 
 	@Autowired
@@ -33,11 +35,11 @@ public class BorrowingController {
 	private MemberService memberService;
 	
 	//Add the Borrowings with the Member id and the Book id 
-	@PostMapping("/{bId}/{mId}")
-	public Borrowing borrowBook(@PathVariable int bId, @PathVariable int mId) {
+	@PostMapping("/{bookId}/{memberId}")
+	public Borrowing borrowBook(@PathVariable int bookId, @PathVariable int memberId) {
 		Borrowing borrowing = new Borrowing();
-		Book book = bookService.getById(bId);
-		Member member = memberService.getById(mId);
+		Book book = bookService.getById(bookId);
+		Member member = memberService.getById(memberId);
 		borrowing.setBook(book);
 		borrowing.setMember(member);
 		borrowing.setBorrowingDate(LocalDate.now());
@@ -54,9 +56,9 @@ public class BorrowingController {
 	}
 
 	// return the book and make the book to available = true
-	@PutMapping("/{bId}/{id}")
-	public double returnBook(@PathVariable int bId, @PathVariable int id) {
-		Book book = bookService.getById(bId);
+	@DeleteMapping("/{bookId}/{id}")
+	public double returnBook(@PathVariable int bookId, @PathVariable int id) {
+		Book book = bookService.getById(bookId);
 		book.setAvailable(true);
 		Borrowing borrowing = new Borrowing();
 		borrowing.setReturnDate(LocalDate.now());
@@ -65,8 +67,9 @@ public class BorrowingController {
         LocalDate returnDate = borrowing.getReturnDate();
 
         if (returnDate.isAfter(dueDate)) {
+        	//chronoUnits its used to calculate the difference b/w two dates
             long lateDays = ChronoUnit.DAYS.between(dueDate, returnDate);
-            borrowing.setFineAmount(lateDays * 5.0); // ₹5 fine per day
+            borrowing.setFineAmount(lateDays * 5.0); // rupees : 5 fine per day
         } else {
             borrowing.setFineAmount(0.0);
         }
@@ -75,9 +78,8 @@ public class BorrowingController {
 		
 	}
 	
-	
-	//get the borrowings by the id
-	@GetMapping("{id}")
+		//get the borrowings by the id
+	@GetMapping("/{id}")
 	public Borrowing getById(@PathVariable int id) {
 		return borrowingService.getById(id);
 	}
@@ -86,5 +88,17 @@ public class BorrowingController {
 	@GetMapping("/all")
 	public List<Borrowing> getAll(){
 		return borrowingService.getAll();
+	}
+	
+	//get the borrowings by member id
+	@GetMapping("member/{memberId}")
+	public List<Borrowing> getBorrowingByMemberId(@PathVariable int memberId) {
+		return borrowingService.getBorrowingByMemberId(memberId);
+	}
+	
+	//get the borrowings by book id
+	@GetMapping("book/{bookId}")
+	public List<Borrowing> getBorrowingByBookId(@PathVariable int bookId){
+		return borrowingService.getBorrowingByBookId(bookId);
 	}
 }

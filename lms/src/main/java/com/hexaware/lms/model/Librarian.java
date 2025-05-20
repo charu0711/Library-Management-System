@@ -1,7 +1,5 @@
 package com.hexaware.lms.model;
 
-import java.util.Objects;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,12 +15,13 @@ public class Librarian {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(nullable = false)
+	@Column(nullable = false,length = 20)
 	private String name;
 	
-	@Column(nullable = false)
+	@Column(length = 25)
 	private String email;
 	
+	@Column(nullable = false,length = 10)
 	private String phoneNumber;
 	
 	
@@ -73,31 +72,7 @@ public class Librarian {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}
-
-
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(email, id, name, phoneNumber);
-	}
-
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Librarian other = (Librarian) obj;
-		return Objects.equals(email, other.email) && id == other.id && Objects.equals(name, other.name)
-				&& Objects.equals(phoneNumber, other.phoneNumber);
-	}
-	
-	
+	}	
 	
 	
 }

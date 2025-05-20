@@ -40,5 +40,15 @@ public class BorrowingService {
 		return optional.get();
 }
 
+
+	public List<Borrowing> getBorrowingByMemberId(int memberId) {
+		return borrowingRepository.findByMemberId(memberId);
+	}
+
+
+	public List<Borrowing> getBorrowingByBookId(int bookId) {
+		return borrowingRepository.findByBookId(bookId);
+	}
+
 	
 }

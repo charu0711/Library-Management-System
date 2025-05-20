@@ -3,6 +3,7 @@ package com.hexaware.lms.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,15 +17,16 @@ import com.hexaware.lms.service.BookService;
 
 @RestController  //combination of the Controller + ResponseBody
 @RequestMapping("/api/book")
+@CrossOrigin({"http://localhost:5173"})
 public class BookController {
 	
 	@Autowired
 	private BookService bookService;
 	
 	//Add Books
-	@PostMapping("/add/{lId}")
-	public Book addBook(@RequestBody Book book,@PathVariable int lId) {
-		return bookService.addBook(book,lId);
+	@PostMapping("/add/{librarianId}")
+	public Book addBook(@RequestBody Book book,@PathVariable int librarianId) {
+		return bookService.addBook(book,librarianId);
 	}
 	
 	

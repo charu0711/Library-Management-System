@@ -1,7 +1,6 @@
 package com.hexaware.lms.model;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,19 +18,21 @@ public class Book {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id; 
 	
-	@Column(nullable = false)
+	@Column(nullable = false,length = 40)
 	private String title;
 	
-	@Column(nullable = false)
+	@Column(nullable = false,length = 20)
 	private String author;
 	
+	@Column(nullable = false,length = 20)
 	private String genre;  //Science Fiction,Fantasy,Biography 
 	
-	@Column(nullable = false,unique = true)
+	@Column(nullable = false,length = 12,unique = true)
 	private String isbn;
 	
 	private boolean isAvailable = true; 
 	
+	@Column(nullable = false)
 	private LocalDate publishedDate;
 	
 	@ManyToOne   //findByLibrarianId
@@ -122,30 +123,6 @@ public class Book {
 
 	public void setLibrarian(Librarian librarian) {
 		this.librarian = librarian;
-	}
-
-
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(author, genre, id, isAvailable, isbn, librarian, publishedDate, title);
-	}
-
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Book other = (Book) obj;
-		return Objects.equals(author, other.author) && Objects.equals(genre, other.genre) && id == other.id
-				&& isAvailable == other.isAvailable && Objects.equals(isbn, other.isbn)
-				&& Objects.equals(librarian, other.librarian) && Objects.equals(publishedDate, other.publishedDate)
-				&& Objects.equals(title, other.title);
 	}
 
 	
