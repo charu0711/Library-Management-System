@@ -1,0 +1,22 @@
+.tabButton {
+  background: #fff;
+  color: #333;
+  border: 1px solid #007bff;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin-bottom: 1rem;
+}
+.tabButtonActive {
+  background: #007bff;
+  color: #fff;
+}
+.leftNav {
+  width: 220px;
+  background: #f8f9fa;
+  padding: 2rem 1rem;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+  min-height: 100vh;
+}
