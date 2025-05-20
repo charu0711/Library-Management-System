@@ -12,9 +12,9 @@ public class LibrarianService {
 	@Autowired
 	private LibrarianRepository librarianRepository;
 
-	public void addLibrarian(Librarian librarian) {
+	public String addLibrarian(Librarian librarian) {
 		librarianRepository.save(librarian);
-		
+		return "Librarian is added Successfully!!";
 	}
 
 }

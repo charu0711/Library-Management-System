@@ -20,8 +20,8 @@ public class LibrarianController {
 	
 	//Add the Librarian
 	@PostMapping("/add")
-	public void addLibrarian(@RequestBody Librarian librarian) {
-		librarianService.addLibrarian(librarian);
+	public String addLibrarian(@RequestBody Librarian librarian) {
+		return librarianService.addLibrarian(librarian);
 	}
 	
 	/*get all borrowings,

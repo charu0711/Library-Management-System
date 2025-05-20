@@ -38,7 +38,7 @@ public class Borrowing {
 	@ManyToOne
 	private Member member; //Many borrowings to one member
 	
-	@ManyToOne
+	@OneToOne
 	private Book book;  // A book can be borrowed many times
 
 	public Borrowing() {
@@ -129,6 +129,14 @@ public class Borrowing {
 
 	public void setBook(Book book) {
 		this.book = book;
+	}
+
+	public Member getReservedMember() {
+		return reservedMember;
+	}
+
+	public void setReservedMember(Member reservedMember) {
+		this.reservedMember = reservedMember;
 	}
 
 			

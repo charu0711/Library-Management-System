@@ -9,6 +9,6 @@ public interface BorrowingRepository extends JpaRepository<Borrowing, Integer> {
 
 	List<Borrowing> findByMemberId(int memberId);
 
-	List<Borrowing> findByBookId(int bookId);
+	Borrowing findByBookId(int bookId);
 
 }
